@@ -1,0 +1,469 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>مسهل — مساعد حفظ القرآن برواية ورش عن نافع</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --ground: #f4efe6;
+        --paper: #fffdf9;
+        --ink: #332e27;
+        --muted: #8b8275;
+        --lav: #b9aede;
+        --lav-deep: #7c6bb0;
+        --sage: #93b199;
+        --line: #e0d8c9;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background: var(--ground);
+        color: var(--ink);
+        font-family: "IBM Plex Sans Arabic", system-ui, sans-serif;
+      }
+      .wrap {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 16px 24px 32px;
+      }
+      header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 16px 0;
+      }
+      .logo {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+      .badge-logo {
+        width: 38px;
+        height: 38px;
+        border-radius: 12px;
+        background: var(--lav-deep);
+        color: var(--paper);
+        display: grid;
+        place-items: center;
+        font-family: "Amiri", serif;
+        font-size: 20px;
+        font-weight: 700;
+      }
+      h1 {
+        font-size: 15px;
+        margin: 0;
+      }
+      .sub {
+        font-size: 11px;
+        color: var(--muted);
+        margin: 3px 0 0;
+      }
+      .pill {
+        border: 1px solid var(--line);
+        background: rgba(255, 253, 249, 0.6);
+        border-radius: 999px;
+        padding: 4px 10px;
+        font-size: 11px;
+        color: var(--muted);
+      }
+      main {
+        display: grid;
+        grid-template-columns: 2fr 3fr;
+        gap: 20px;
+      }
+      @media (max-width: 900px) {
+        main {
+          grid-template-columns: 1fr;
+        }
+      }
+      .card {
+        border: 1px solid var(--line);
+        background: rgba(255, 253, 249, 0.75);
+        border-radius: 24px;
+        padding: 20px;
+        box-shadow: 0 1px 2px rgba(51, 46, 39, 0.04);
+      }
+      label {
+        display: block;
+        font-size: 11px;
+        color: var(--muted);
+        margin: 12px 0 6px;
+      }
+      select,
+      input {
+        width: 100%;
+        border: 1px solid var(--line);
+        background: var(--paper);
+        border-radius: 16px;
+        padding: 10px 12px;
+        font: inherit;
+        font-size: 14px;
+        color: inherit;
+      }
+      .row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+      }
+      button {
+        font: inherit;
+        cursor: pointer;
+        border: 0;
+      }
+      .primary {
+        width: 100%;
+        margin-top: 16px;
+        border-radius: 16px;
+        background: var(--ink);
+        color: var(--paper);
+        padding: 12px;
+        font-weight: 600;
+        font-size: 14px;
+      }
+      .bar {
+        height: 10px;
+        background: rgba(224, 216, 201, 0.5);
+        border-radius: 999px;
+        overflow: hidden;
+        margin-top: 12px;
+      }
+      .bar > span {
+        display: block;
+        height: 100%;
+        background: var(--lav-deep);
+        border-radius: 999px;
+        transition: width 0.3s;
+      }
+      .legend {
+        margin-top: 16px;
+        font-size: 12px;
+        display: grid;
+        gap: 10px;
+      }
+      .legend div {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 999px;
+      }
+      .step-badge {
+        border: 1px solid rgba(185, 174, 222, 0.5);
+        background: rgba(185, 174, 222, 0.25);
+        color: var(--lav-deep);
+        border-radius: 999px;
+        padding: 6px 12px;
+        font-size: 11px;
+        font-weight: 600;
+      }
+      .ayat {
+        font-family: "Amiri", serif;
+        font-size: 34px;
+        line-height: 1.9;
+        font-weight: 700;
+        text-align: center;
+        margin: 24px 0 8px;
+        min-height: 140px;
+      }
+      .ayat.hidden-text {
+        filter: blur(7px);
+        user-select: none;
+      }
+      .num {
+        color: var(--lav-deep);
+        font-size: 20px;
+      }
+      .counter {
+        border: 1px solid rgba(224, 216, 201, 0.6);
+        background: rgba(244, 239, 230, 0.5);
+        border-radius: 24px;
+        padding: 20px;
+        text-align: center;
+      }
+      .beads {
+        display: flex;
+        gap: 6px;
+        justify-content: center;
+        align-items: center;
+      }
+      .bead {
+        width: 12px;
+        height: 12px;
+        border-radius: 999px;
+        background: var(--line);
+      }
+      .bead.on {
+        background: var(--lav-deep);
+      }
+      .controls {
+        display: flex;
+        gap: 24px;
+        justify-content: center;
+        align-items: center;
+        margin-top: 16px;
+      }
+      .circle {
+        width: 56px;
+        height: 56px;
+        border-radius: 999px;
+        border: 1px solid var(--line);
+        background: var(--paper);
+        color: var(--muted);
+        font-size: 24px;
+      }
+      .big {
+        width: 96px;
+        height: 96px;
+        border-radius: 999px;
+        background: var(--lav-deep);
+        color: var(--paper);
+        font-family: "Amiri", serif;
+        font-size: 36px;
+        font-weight: 700;
+        box-shadow: 0 12px 28px -12px rgba(124, 107, 176, 0.8);
+      }
+      .big:active {
+        transform: scale(0.95);
+      }
+      .hint {
+        font-size: 12px;
+        color: var(--muted);
+        margin-top: 14px;
+      }
+      footer {
+        display: flex;
+        justify-content: space-between;
+        border-top: 1px solid var(--line);
+        margin-top: 24px;
+        padding-top: 14px;
+        font-size: 11px;
+        color: var(--muted);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <header>
+        <div class="logo">
+          <div class="badge-logo">م</div>
+          <div>
+            <h1>مسهل</h1>
+            <p class="sub">مصحف ورش عن نافع — مساعد الحفظ</p>
+          </div>
+        </div>
+        <div style="display: flex; gap: 8px">
+          <span class="pill">رواية ورش عن نافع</span>
+          <span class="pill" id="percentPill">0% مكتمل</span>
+        </div>
+      </header>
+
+      <main>
+        <section>
+          <div class="card">
+            <p style="font-size: 11px; color: var(--muted); font-weight: 600; margin: 0">
+              اختر السورة ونطاق الآيات
+            </p>
+            <label for="surah">السورة</label>
+            <select id="surah"></select>
+            <div class="row">
+              <div><label for="from">من الآية</label><input id="from" type="number" min="1" value="1" /></div>
+              <div><label for="to">إلى الآية</label><input id="to" type="number" min="1" value="3" /></div>
+            </div>
+            <p class="hint" id="planInfo"></p>
+            <button class="primary" id="startBtn">بدء الحفظ</button>
+          </div>
+
+          <div class="card" style="margin-top: 16px">
+            <p style="font-size: 11px; color: var(--muted); font-weight: 600; margin: 0">
+              تقدّم خطة الحفظ
+            </p>
+            <div class="bar"><span id="bar1" style="width: 0%"></span></div>
+            <p class="hint" id="stepInfo">الخطوة 0 من 0</p>
+            <div class="legend">
+              <div><span class="dot" style="background: var(--ink)"></span> قراءة من المصحف × 3</div>
+              <div><span class="dot" style="background: var(--lav-deep)"></span> تلاوة غيبًا × 3</div>
+              <div><span class="dot" style="background: var(--sage)"></span> مراجعة تراكمية غيبًا × 5</div>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <div class="card">
+            <div style="display: flex; justify-content: space-between; align-items: center">
+              <span class="step-badge" id="stepLabel">—</span>
+              <span style="font-size: 11px; color: var(--muted)" id="rangeLabel"></span>
+            </div>
+            <p class="ayat" id="ayat">اختر السورة ونطاق الآيات ثم اضغط «بدء الحفظ».</p>
+            <p class="hint" id="blurNote" style="text-align: center"></p>
+            <div class="counter">
+              <div class="beads" id="beads"></div>
+              <div class="controls">
+                <button class="circle" id="minus">−</button>
+                <button class="big" id="tick">0</button>
+                <button class="circle" id="plus">+</button>
+              </div>
+              <p class="hint">اضغط العدّة لتسجيل كل تكرار</p>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <footer>
+        <span>خوارزمية الحفظ: 3 من المصحف · 3 غيبًا · 5 مراجعة تراكمية</span>
+        <span>رواية ورش عن نافع</span>
+      </footer>
+    </div>
+
+    <script>
+      // نص المصحف برواية ورش عن نافع — بيانات مفتوحة (60 حزبًا) تُجمَّع مرة واحدة عند التحميل
+      const HIZB_URL = (i) =>
+        `https://cdn.jsdelivr.net/gh/SalahEddine-Ghannouch/QuranWarshData@main/hizbs/hizb_${String(i).padStart(2, "0")}.json`;
+      const LABELS = {
+        mushaf: "قراءة من المصحف",
+        ghayb: "تلاوة غيبًا",
+        review: "مراجعة تراكمية غيبًا",
+      };
+
+      let quran = {}, names = {}, surahs = [], ayahs = [], plan = [], stepIndex = 0, count = 0, started = false;
+
+      // الخوارزمية: لكل آية 3 من المصحف + 3 غيبًا، ثم من الأولى إلى الحالية 5 مرات غيبًا
+      function buildPlan(start, end) {
+        const steps = [];
+        for (let i = start; i <= end; i++) {
+          steps.push({ kind: "mushaf", from: i, to: i, target: 3 });
+          steps.push({ kind: "ghayb", from: i, to: i, target: 3 });
+          if (i > start) steps.push({ kind: "review", from: start, to: i, target: 5 });
+        }
+        return steps;
+      }
+
+      const el = (id) => document.getElementById(id);
+
+      async function loadSurahs() {
+        el("ayat").textContent = "جارٍ تحميل المصحف برواية ورش…";
+        const parts = await Promise.all(
+          Array.from({ length: 60 }, (_, i) => fetch(HIZB_URL(i + 1)).then((r) => r.json())),
+        );
+        for (const part of parts) {
+          for (const s of part.surahs) {
+            names[s.id] = s.name;
+            quran[s.id] = quran[s.id] || {};
+            for (const a of s.ayahs) quran[s.id][Number(a.number)] = a.text.trim();
+          }
+        }
+        surahs = Object.keys(quran)
+          .map(Number)
+          .sort((a, b) => a - b)
+          .map((n) => ({ number: n, name: names[n], count: Object.keys(quran[n]).length }));
+        el("surah").innerHTML = surahs
+          .map((s) => `<option value="${s.number}">${s.number} — ${s.name} (${s.count} آية)</option>`)
+          .join("");
+        loadAyahs();
+      }
+
+      function loadAyahs() {
+        const n = Number(el("surah").value);
+        const m = quran[n] || {};
+        ayahs = Object.keys(m)
+          .map(Number)
+          .sort((a, b) => a - b)
+          .map((k) => ({ n: k, text: m[k] }));
+        el("from").max = ayahs.length;
+        el("to").max = ayahs.length;
+        el("from").value = 1;
+        el("to").value = Math.min(3, ayahs.length);
+        started = false;
+        stepIndex = 0;
+        count = 0;
+        el("startBtn").textContent = "بدء الحفظ";
+        render();
+      }
+
+      function currentRange() {
+        const a = Math.max(1, Math.min(Number(el("from").value) || 1, ayahs.length));
+        const b = Math.max(a, Math.min(Number(el("to").value) || a, ayahs.length));
+        return [a, b];
+      }
+
+      function render() {
+        const [a, b] = currentRange();
+        plan = buildPlan(a, b);
+        const total = plan.reduce((s, p) => s + p.target, 0);
+        const doneReps = plan.slice(0, Math.min(stepIndex, plan.length)).reduce((s, p) => s + p.target, 0) + count;
+        const pct = total ? Math.round((doneReps / total) * 100) : 0;
+        el("percentPill").textContent = pct + "% مكتمل";
+        el("bar1").style.width = pct + "%";
+        el("planInfo").textContent = `عدد الآيات المختارة: ${b - a + 1} — مجموع التكرارات: ${total}`;
+        el("stepInfo").textContent = `الخطوة ${Math.min(stepIndex + 1, plan.length)} من ${plan.length}`;
+
+        const done = stepIndex >= plan.length;
+        const step = plan[Math.min(stepIndex, plan.length - 1)];
+        el("stepLabel").textContent = done ? "أتممت الخطة" : LABELS[step.kind];
+        el("rangeLabel").textContent = step
+          ? `الآيات ${step.from}${step.to !== step.from ? "–" + step.to : ""}`
+          : "";
+
+        const ay = el("ayat");
+        if (!started) {
+          ay.className = "ayat";
+          ay.textContent = "اختر السورة ونطاق الآيات ثم اضغط «بدء الحفظ».";
+          el("blurNote").textContent = "";
+        } else if (done) {
+          ay.className = "ayat";
+          ay.textContent = `أحسنت! أتممت حفظ الآيات ${a}–${b}.`;
+          el("blurNote").textContent = "";
+        } else {
+          ay.className = "ayat" + (step.kind === "mushaf" ? "" : " hidden-text");
+          ay.innerHTML = ayahs
+            .filter((x) => x.n >= step.from && x.n <= step.to)
+            .map((x) => `${x.text} <span class="num">﴿${x.n}﴾</span>`)
+            .join(" ");
+          el("blurNote").textContent =
+            step.kind === "mushaf" ? "" : "النص محجوب لأن هذه الخطوة تُتلى غيبًا";
+        }
+
+        const target = done ? 0 : step.target;
+        el("beads").innerHTML = Array.from({ length: target })
+          .map((_, i) => `<span class="bead${i < count ? " on" : ""}"></span>`)
+          .join("") + `<span class="hint" style="margin:0 8px">${count} من ${target}</span>`;
+        el("tick").textContent = count;
+      }
+
+      function tick() {
+        if (!started || stepIndex >= plan.length) return;
+        const step = plan[stepIndex];
+        if (count + 1 >= step.target) {
+          count = 0;
+          stepIndex++;
+        } else count++;
+        render();
+      }
+
+      el("surah").addEventListener("change", loadAyahs);
+      el("from").addEventListener("input", () => { stepIndex = 0; count = 0; render(); });
+      el("to").addEventListener("input", () => { stepIndex = 0; count = 0; render(); });
+      el("startBtn").addEventListener("click", () => {
+        started = true; stepIndex = 0; count = 0;
+        el("startBtn").textContent = "إعادة البدء";
+        render();
+      });
+      el("tick").addEventListener("click", tick);
+      el("plus").addEventListener("click", tick);
+      el("minus").addEventListener("click", () => { count = Math.max(0, count - 1); render(); });
+
+      loadSurahs();
+    </script>
+  </body>
+</html>
